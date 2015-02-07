@@ -1,0 +1,13 @@
+; KeyHook.def : DLL のモジュール パラメータを宣言します。
+
+LIBRARY      "KeyHook"
+
+EXPORTS
+    ; 明示的なエクスポートはここへ記述できます
+		setHook		@1
+		unsetHook	@2
+		getKeyCD	@3
+		IsUpdate	@4
+
+SECTIONS
+    .share READ WRITE SHARED
