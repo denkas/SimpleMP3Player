@@ -160,7 +160,8 @@ BOOL CSimpleMP3PlayerDlg::OnInitDialog()
 	m_nIcon.uCallbackMessage = MY_NOTIFYICON;
 	m_nIcon.hIcon = m_hIcon;
 	m_nIcon.uTimeout = 10000;
-	m_nIcon.dwInfoFlags = NIIF_INFO | NIIF_NOSOUND;
+//	m_nIcon.dwInfoFlags = NIIF_INFO | NIIF_NOSOUND;
+	m_nIcon.dwInfoFlags = NIIF_NOSOUND;
 	strcpy_s(m_nIcon.szTip, sizeof(m_nIcon.szTip), "’âŽ~’†");
 	Shell_NotifyIcon(NIM_ADD  , &m_nIcon);
 
@@ -201,7 +202,11 @@ BOOL CSimpleMP3PlayerDlg::OnInitDialog()
 	if (!bAutoPlay)
 	{
 		CStdioFile f;
-		if (f.Open(RESUME_FILE_NAME, CFile::modeRead))
+		char ftmp[256];
+		strcpy(ftmp, getenv("USERPROFILE")); strcat(ftmp, RESUME_FILE_NAME);
+
+//		if (f.Open(RESUME_FILE_NAME, CFile::modeRead))
+		if (f.Open(ftmp, CFile::modeRead))
 		{
 			char name[1024];
 			while (f.ReadString(name,1024) != NULL)
@@ -396,7 +401,10 @@ LRESULT CSimpleMP3PlayerDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lPar
 BOOL CSimpleMP3PlayerDlg::DestroyWindow() 
 {
 	CFile f;
-	f.Open(RESUME_FILE_NAME,CFile::modeCreate | CFile::modeWrite);
+	char ftmp[256];
+	strcpy(ftmp, getenv("USERPROFILE")); strcat(ftmp, RESUME_FILE_NAME);
+
+	f.Open(ftmp, CFile::modeCreate | CFile::modeWrite);
 	for (int i=0;i<m_ListBox.GetCount();i++)
 	{
 		CString name;
@@ -468,7 +476,8 @@ BOOL CSimpleMP3PlayerDlg::PlayMP3(int nCount)
 	strcpy_s(m_nIcon.szInfoTitle, sizeof(m_nIcon.szInfoTitle),"Ä¶’†‚Ìƒtƒ@ƒCƒ‹");
 	strcpy_s(m_nIcon.szInfo, filebuf);
 	m_nIcon.cbSize = NOTIFYICONDATA_V2_SIZE;
-	m_nIcon.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP | NIF_INFO;
+//	m_nIcon.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP | NIF_INFO;
+	m_nIcon.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
 	m_nIcon.uTimeout = 10000;
 	m_nIcon.dwInfoFlags = NIIF_INFO | NIIF_NOSOUND;
 
@@ -712,23 +721,25 @@ void CSimpleMP3PlayerDlg::OnBnClickedPreset()
 	if (dlg.DoModal() == IDOK)
 	{
 		CFile f;
-		
+		char ftmp[256];
+		strcpy(ftmp, getenv("USERPROFILE"));
+
 		switch (dlg.m_MemSelect)
 		{
 			case 0:
-				f.Open(MEM_FILE_NAME1,CFile::modeCreate | CFile::modeWrite);
+				f.Open(strcat(ftmp, MEM_FILE_NAME1),CFile::modeCreate | CFile::modeWrite);
 				break;
 			case 1:
-				f.Open(MEM_FILE_NAME2,CFile::modeCreate | CFile::modeWrite);
+				f.Open(strcat(ftmp, MEM_FILE_NAME2),CFile::modeCreate | CFile::modeWrite);
 				break;
 			case 2:
-				f.Open(MEM_FILE_NAME3,CFile::modeCreate | CFile::modeWrite);
+				f.Open(strcat(ftmp, MEM_FILE_NAME3),CFile::modeCreate | CFile::modeWrite);
 				break;
 			case 3:
-				f.Open(MEM_FILE_NAME4,CFile::modeCreate | CFile::modeWrite);
+				f.Open(strcat(ftmp, MEM_FILE_NAME4),CFile::modeCreate | CFile::modeWrite);
 				break;
 			case 4:
-				f.Open(MEM_FILE_NAME5,CFile::modeCreate | CFile::modeWrite);
+				f.Open(strcat(ftmp, MEM_FILE_NAME5),CFile::modeCreate | CFile::modeWrite);
 				break;
 		}
 
@@ -746,35 +757,35 @@ void CSimpleMP3PlayerDlg::OnBnClickedPreset()
 void CSimpleMP3PlayerDlg::OnBnClickedCh1()
 {
 	char tmp[256];
-	sprintf_s(tmp,"%s",MEM_FILE_NAME1);
+	sprintf_s(tmp,"%s%s", getenv("USERPROFILE"), MEM_FILE_NAME1);
 	MemFileRead(tmp);
 }
 
 void CSimpleMP3PlayerDlg::OnBnClickedCh2()
 {
 	char tmp[256];
-	sprintf_s(tmp,"%s",MEM_FILE_NAME2);
+	sprintf_s(tmp, "%s%s", getenv("USERPROFILE"), MEM_FILE_NAME2);
 	MemFileRead(tmp);
 }
 
 void CSimpleMP3PlayerDlg::OnBnClickedCh3()
 {
 	char tmp[256];
-	sprintf_s(tmp,"%s",MEM_FILE_NAME3);
+	sprintf_s(tmp, "%s%s", getenv("USERPROFILE"), MEM_FILE_NAME3);
 	MemFileRead(tmp);
 }
 
 void CSimpleMP3PlayerDlg::OnBnClickedCh4()
 {
 	char tmp[256];
-	sprintf_s(tmp,"%s",MEM_FILE_NAME4);
+	sprintf_s(tmp, "%s%s", getenv("USERPROFILE"), MEM_FILE_NAME4);
 	MemFileRead(tmp);
 }
 
 void CSimpleMP3PlayerDlg::OnBnClickedCh5()
 {
 	char tmp[256];
-	sprintf_s(tmp,"%s",MEM_FILE_NAME5);
+	sprintf_s(tmp, "%s%s", getenv("USERPROFILE"), MEM_FILE_NAME5);
 	MemFileRead(tmp);
 }
 

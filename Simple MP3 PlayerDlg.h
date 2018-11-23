@@ -10,12 +10,12 @@
 #define MY_NOTIFYICON (WM_APP + 100)
 
 #define VERSION_INFO		"Denka's Simple MP3 Player Version 1.13 (July 1st 2012)"
-#define RESUME_FILE_NAME	"default.lst"
-#define MEM_FILE_NAME1		"mem1.lst"
-#define MEM_FILE_NAME2		"mem2.lst"
-#define MEM_FILE_NAME3		"mem3.lst"
-#define MEM_FILE_NAME4		"mem4.lst"
-#define MEM_FILE_NAME5		"mem5.lst"
+#define RESUME_FILE_NAME	"\\SimpleMP3Player\\default.lst"
+#define MEM_FILE_NAME1		"\\SimpleMP3Player\\mem1.lst"
+#define MEM_FILE_NAME2		"\\SimpleMP3Player\\mem2.lst"
+#define MEM_FILE_NAME3		"\\SimpleMP3Player\\mem3.lst"
+#define MEM_FILE_NAME4		"\\SimpleMP3Player\\mem4.lst"
+#define MEM_FILE_NAME5		"\\SimpleMP3Player\\mem5.lst"
 
 #include <dshow.h>
 #include "MemSelect.h"
